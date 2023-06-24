@@ -12,10 +12,13 @@ public class task{
        System.out.println(message);
        return sc.nextLine();
     }
-    static Deque<Character> dequeCreator(String number){
+    static Deque<Character> dequeCreator(String number, boolean isReverse){
        Deque<Character> deque = new ArrayDeque<>();
        char[] numbersChars = number.toCharArray();
-       for(char i: numbersChars) deque.addFirst(i);
+       for(char i: numbersChars){
+         if(isReverse) deque.addFirst(i);
+         else deque.addLast(i);
+       } 
        return deque;
     }
     static int parseToInt(Deque<Character> charDeque){
@@ -23,15 +26,20 @@ public class task{
       for(int i = charDeque.size();i>0;i--) number+=charDeque.pollLast();
       return Integer.parseInt(number);
     }
+    
    public static void main(String[] args) {
       Scanner sc = new Scanner(System.in);
       String first_number = input_method(sc, "Please input first number: ");
       String second_number = input_method(sc, "Please input second number: ");  
-      Deque<Character> firstNumberDeque = dequeCreator(first_number);
-      Deque<Character> secondNumberDeque = dequeCreator(second_number);
+      Deque<Character> firstNumberDeque = dequeCreator(first_number,true);
+      Deque<Character> secondNumberDeque = dequeCreator(second_number,true);
       int firstNumber = parseToInt(firstNumberDeque); 
       int secondNumber = parseToInt(secondNumberDeque);
-      System.out.printf("Sum of first number %d and second number %d is %d. \n", firstNumber,secondNumber,firstNumber+secondNumber);
-      System.out.printf("Сomposition of first number %d and second number %d is %d. ", firstNumber,secondNumber,firstNumber*secondNumber);
+      Integer sumResult = firstNumber+secondNumber;
+      Integer compositionResult = firstNumber*secondNumber;
+      System.out.println("Sum of first number  and second number is ");
+      System.out.println(dequeCreator(sumResult.toString(),false));
+      System.out.printf("Сomposition of first number  and second number  is  ");
+      System.out.println(dequeCreator(compositionResult.toString(),false));
    }
 }
